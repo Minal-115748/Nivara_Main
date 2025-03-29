@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - NIRVANA</title>
+  <style>
+    .checkout-container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .order-summary {
+      margin-bottom: 20px;
+    }
+    .pay-btn {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Include your navigation -->
+  <div class="nav-container">
+    <!-- Your existing nav code from other pages -->
+  </div>
+
+  <div class="checkout-container">
+    <h2>Checkout</h2>
+    
+    <div class="order-summary">
+      <h3>Order Summary</h3>
+      <div id="order-items">
+        <!-- Cart items will be dynamically inserted here -->
+      </div>
+      <p>Total: ₹<span id="total-amount">0</span></p>
+    </div>
+
+    <button class="pay-btn" onclick="payNow()">Proceed to Payment</button>
+  </div>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    // Load cart items from localStorage and calculate total
+    function loadOrderSummary() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const orderItems = document.getElementById('order-items');
+      const totalAmount = document.getElementById('total-amount');
+      
+      let total = 0;
+      orderItems.innerHTML = '';
+      
+      cart.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.innerHTML = `<p>${item.name} - ₹${item.price}</p>`;
+        orderItems.appendChild(itemElement);
+        total += parseFloat(item.price);
+      });
+      
+      totalAmount.textContent = total.toFixed(2);
+      return total;
+    }
+
+    // Payment function
+    async function payNow() {
+      const amount = loadOrderSummary() * 100; // Convert to paise
+
+      try {
+        const response = await fetch('/create-order', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ 
+            amount, 
+            currency: 'INR', 
+            receipt: 'order_' + Date.now(),
+            notes: {
+              items: JSON.stringify(localStorage.getItem('cart'))
+            }
+          })
+        });
+
+        const order = await response.json();
+
+        const options = {
+          key: 'rzp_test_Y2wy8t1wD1AFaA',
+          amount: order.amount,
+          currency: order.currency,
+          name: 'NIRVANA',
+          description: 'Handmade Products Purchase',
+          order_id: order.id,
+          handler: function(response) {
+            fetch('/verify-payment', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature
+              })
+            }).then(res => res.json())
+              .then(data => {
+                if (data.status === 'ok') {
+                  // Clear cart after successful payment
+                  localStorage.removeItem('cart');
+                  window.location.href = '/payment-success';
+                } else {
+                  alert('Payment verification failed');
+                }
+              });
+          },
+          prefill: {
+            name: 'Customer Name',
+            email: 'customer@example.com',
+            contact: '9999999999'
+          },
+          theme: {
+            color: '#6a4c93' // Matching your site's color scheme
+          }
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.open();
+      } catch (error) {
+        console.error('Payment error:', error);
+        alert('Error processing payment');
+      }
+    }
+
+    // Initialize order summary when page loads
+    document.addEventListener('DOMContentLoaded', loadOrderSummary);
+  </script>
+</body>
+</html>
