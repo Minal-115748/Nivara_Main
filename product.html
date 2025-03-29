@@ -1,5 +1,3 @@
-git push origin main
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -278,6 +276,7 @@ git push origin main
             border-radius: 5px;
             cursor: pointer;
             margin-right: 10px;
+            margin-bottom: 25px;
             /* margin-top: 20px; */
 
         }
@@ -323,8 +322,8 @@ git push origin main
     color: white;
     margin-top: 18px;
 }
-.hero-button {
-  background-color: #4CAF50; /* Green */
+/* .hero-button {
+  background-color: #4CAF50; 
   border: none;
   color: white;
   padding: 15px 32px;
@@ -334,12 +333,65 @@ git push origin main
   font-size: 16px;
   margin: 20px 2px;
   cursor: pointer;
-  border-radius: 5px; /* Rounded corners */
+  border-radius: 5px; 
 }
 
 .hero-button:hover {
-  background-color: #3e8e41; /* Darker green on hover */
+  background-color: #3e8e41; 
+} */
+
+
+
+
+
+
+
+
+
+
+.container {
+    text-align: center;
 }
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.hidden {
+    display: none;
+}
+
+.color-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.color-button {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.color-button:hover {
+    border: 2px solid #333;
+}
+#customizeButton{
+    position: relative;
+    right: 380px;
+}
+
     </style>
 </head>
 <body>
@@ -460,12 +512,15 @@ git push origin main
     </div> -->
 
     
-
+<br>
+<br>
+<br>
+<br>
 
     <div class="product-container">
         <div class="product-image">         <div id="zoom-lens"></div>
 
-            <img id="product-image" src="" alt="Product Image">
+            <img id="product-image" src="img/tshirt.jpg" alt="Product Image">
         </div>
         <div class="product-details">
             <h2 id="product-name">Product Name</h2>
@@ -477,18 +532,53 @@ git push origin main
                 <button class="cart-btn" onclick="addToCart()">Add to Cart</button>
                 <button class="buy-btn" onclick="buyNow()">Buy Now</button>
                 <br>
+            
+                
+
+<!--                 
                 <button class="Customize">Customize Product</button>
                 <br>
-                <button class="hero-button">Red</button>
-                <button class="hero-button">Blue</button>
-                <button class="hero-button">Green</button>
-                <button class="hero-button">Grey</button>
-                <button class="hero-button">Pink</button>
-                <button class="hero-button">Yellow</button>
+                <button class="hero-button" style="background-color: red;">Red</button>
+                <button class="hero-button" style="background-color: rgb(203, 198, 198);">Grey</button>
+                <button class="hero-button" style="background-color: rgb(51, 225, 45);">Green</button>
+                <button class="hero-button" style="background-color: rgb(230, 39, 176);">Pink</button>
+                <button class="hero-button" style="background-color: rgb(50, 207, 239);">Blue</button>
+
+              
 
             </div>
         </div>
+    </div> -->
+
+
+
+
+
+    <div class="container">
+        <button id="customizeButton">Customize Product</button>
+
+        <div id="colorOptions" class="hidden">
+            <p>Change Color:</p>
+            <div class="color-buttons">
+                <button class="color-button" data-color="Red" style="background-color: red;"></button>
+                <button class="color-button" data-color="Blue" style="background-color: blue;"></button>
+                <button class="color-button" data-color="Green" style="background-color: green;"></button>
+                <button class="color-button" data-color="Yellow" style="background-color: yellow;"></button>
+                <button class="color-button" data-color="Black" style="background-color: black;"></button>
+            </div>
+        </div>
+
+        <div id="selectedColor" class="hidden">
+            <p>Selected Color: <span id="colorName">None</span></p>
+        </div>
     </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+
 
     <script src="JS/script.js"></script>
   

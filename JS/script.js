@@ -134,3 +134,23 @@ function addToCart() {
 function buyNow() {
     alert("Proceeding to checkout!");
 }
+
+const customizeButton = document.getElementById('customizeButton');
+const colorOptions = document.getElementById('colorOptions');
+const colorButtons = document.querySelectorAll('.color-button');
+const selectedColorDiv = document.getElementById('selectedColor');
+const colorName = document.getElementById('colorName');
+
+// Show color options when 'Customize Product' is clicked
+customizeButton.addEventListener('click', () => {
+    colorOptions.classList.toggle('hidden');
+});
+
+// Handle color button clicks
+colorButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const selectedColor = button.getAttribute('data-color');
+        colorName.textContent = selectedColor;
+        selectedColorDiv.classList.remove('hidden');
+    });
+});
