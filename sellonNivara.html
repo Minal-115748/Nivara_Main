@@ -1,0 +1,301 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY Bazaar Clone</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="CSS/style.css">
+    <script defer src="script.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: black;
+            color: white;
+            height: 50px;
+        }
+        /* .nav-container i {
+            position: absolute;
+            left: 850px;
+
+        } */
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .logo span {
+            color: blue;
+        }
+        .search {
+            padding: 5px;
+            width: 500px;
+            border-radius: 5px;
+            border: none;
+            position: absolute;
+            left: 400px;
+            height: 20px;
+        }
+        .search-icon{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(188, 155, 69);
+            width: 40px;
+            position: absolute;
+            left: 910px;
+            height: 30px;
+            border: none;
+            border-radius: 5px 5px 5px ;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        nav ul li a:hover {
+            color: #ff9800;
+        }
+        nav ul p {
+           position: relative;
+           /* bottom: 15px; */
+        }
+        nav ul i {
+            color: white;
+        }
+        .hero {
+            /* background: url('banner.jpg') no-repeat center center/cover; */
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background-image: url('img/background1.jpg');
+            background-size: cover;
+        }
+        .hero-content {
+            /* background: rgba(0, 0, 0, 0.5); */
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+            top: 85px;
+            color: #5a3e0f;
+            font-size: 2.3rem;
+        }
+        .features {
+            display: flex;
+            justify-content: space-evenly;
+            padding: 20px;
+            background: #b3ad93;
+        }
+        .feature-item {
+            padding: 10px 20px;
+            border: 1px solid black;
+            background: white;
+            border-radius: 5px; 
+             box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); 
+        }
+        .features2 {
+            display: flex;
+            justify-content: space-evenly;
+            padding: 20px;
+            background: #b17b59;
+        }
+        .feature-item2 {
+            padding: 10px 20px;
+            /* border: 1px solid black; */
+            /* background: white; */
+            /* border-radius: 5px;  */
+             /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);  */
+        }
+        .menu {
+            /* background-color: #222; */
+            display: flex;
+            padding: 10px;
+            justify-content: center;
+            align-items: center;
+            height: 25px;
+            background-color: rgb(35, 47, 62);
+        }
+        .menu-item {
+            position: relative;
+            color: white;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        .menu-item:hover {
+            background-color: #444;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 27px;
+            left: 0;
+            background-color: rgb(102, 99, 99);
+            color: white;
+            list-style: none;
+            padding: 10px;
+            width: 150px;
+            border: 1px solid #ddd;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .dropdown li {
+            padding: 8px 10px;
+            cursor: pointer;
+            
+        }
+        .dropdown li:hover {
+            background-color: #c6bfbf;
+        }
+        .dropdown li a {
+    text-decoration: none;
+    color: white;
+ }
+        .menu-item:hover .dropdown {
+            display: block;
+        }
+        
+        .hero2 {
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        .hero-content2 {
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+            top: 85px;
+            font-size: 2.3rem;
+            background-color: #243b4a ;
+
+        }
+   
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <div class="nav-container">
+             <div class="logo">NIRVANA</div>
+           
+                <input type="text" class="search" placeholder="Search on NIRVANA ...">
+
+                <div class="search-icon">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            
+            <nav>
+                
+                <ul>
+                    <i class="fa-regular fa-user"></i>
+                    <li><a href="#">Login</a></li>
+                    <p>OR</p>
+                    <li><a href="#"> Create Account</a></li>
+                    <li><a href="#">Add to Cart</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="menu">
+        <div class="menu-item">Home</div>
+        <div class="menu-item">Featured Collections
+            <ul class="dropdown">
+                <li>Collection 1</li>
+                <li>Collection 2</li>
+                <li>Collection 3</li>
+            </ul>
+        </div>
+        <div class="menu-item">Home & Living
+            <ul class="dropdown">
+                <li><a href="AllHome.html">All Home & Living</a></li>
+                <li><a href="LippanArt.html">Lippan Art</a></li>
+                <li><a href="Nameplates.html">Nameplates</a></li>
+                <li>Woodcraft</li>
+                <li>Plants & Planters</li>
+                <li>Wall Decor</li>
+                <li>Wall Clock</li>
+                <li>Candles</li>
+                <li>Cusion Cover</li>
+                <li>Coaster</li>
+                <li>Metal Products</li>
+                <li>Tealight</li>
+            </ul>
+        </div>
+        <div class="menu-item">Fashion
+            <ul class="dropdown">
+                <li>Men</li>
+                <li>Women</li>
+                <li>Kids</li>
+            </ul>
+        </div>
+        <div class="menu-item">Jewellery
+            <ul class="dropdown">
+                <li>All Jewellery</li>
+                <li>Resin Jewellery</li>
+                <li>Handmade Earrings</li>
+                <li>Clay Jewellery</li>
+                <li>Chorcet Jewellery</li>
+                <li>Hand Accessories</li>
+                <li>Necklace</li>
+                <li>Jewellery Box</li>
+            </ul>
+        </div>
+        <div class="menu-item">Gifts
+            <ul class="dropdown">
+                <li>Birthday</li>
+                <li>Anniversary</li>
+                <li>Festivals</li>
+                <li>Gift Combo</li>
+                <li>Calender</li>
+                <li>Embroidery Hoop</li>
+            </ul>
+        </div>
+        <div class="menu-item">Stationery
+            <ul class="dropdown">
+                <li>Notebooks</li>
+                <li>Pens</li>
+                <li>Organizers</li>
+                <li>Storage Box</li>
+                <li>Pen Holder</li>
+                <li>Stickers</li>
+            </ul>
+        </div>
+        <div class="menu-item">Paintings
+            <ul class="dropdown">
+                <li>Abstract</li>
+                <li>Traditional</li>
+                <li>Modern</li>
+            </ul>
+        </div>
+        <div class="menu-item">Sell on Nirvana</div>
+
+        <section class="hero2">
+            <div class="hero-content2">
+
+            </div>
+        </section>
+    </div>
+</body>
+</html>

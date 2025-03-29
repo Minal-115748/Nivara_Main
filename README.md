@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+git commit -m "first commit"<<<<<<< HEAD
 # Nivara-Code-A_Thon-
 =======
 # README.md

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add to Cart</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+header {
+    background: #333;
+    color: white;
+    padding: 10px;
+}
+
+.products {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px;
+}
+
+.product {
+    border: 1px solid #ddd;
+    padding: 15px;
+    width: 200px;
+    background: #f9f9f9;
+}
+
+button {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.cart {
+    margin-top: 20px;
+    padding: 10px;
+    border-top: 2px solid #333;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.remove {
+    background: red;
+    padding: 5px;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Shopping Cart</h1>
+    </header>
+
+    <section class="products">
+        <div class="product" data-id="1" data-name="Product 1" data-price="500">
+            <h2>Product 1</h2>
+            <p>Price: ₹500</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product" data-id="2" data-name="Product 2" data-price="750">
+            <h2>Product 2</h2>
+            <p>Price: ₹750</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product" data-id="3" data-name="Product 3" data-price="1000">
+            <h2>Product 3</h2>
+            <p>Price: ₹1000</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+    </section>
+
+    <section class="cart">
+        <h2>Shopping Cart</h2>
+        <div id="cart-items"></div>
+        <h3>Total: ₹<span id="cart-total">0</span></h3>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
