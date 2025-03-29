@@ -93,6 +93,14 @@ const products = {
         image: "img/tshirt.jpg",
         rating: "⭐ 4.1/5",
         reviews: "61 reviews"
+    },
+    21: {
+        name: "Beaded Necklace",
+        price: "₹599",
+        description: "A colorful bead necklace with a pendant",
+        image: "img/necklace1.jpg",
+        rating: "⭐ 4.1/5",
+        reviews: "72 reviews"
     }
 };
 

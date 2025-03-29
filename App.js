@@ -1,111 +1,146 @@
-const express = require('express');
-const Razorpay = require('razorpay');
-const bodyParser = require('body-parser');
-const path = require('path');
-const fs = require('fs');
-const { validateWebhookSignature } = require('razorpay/dist/utils/razorpay-utils');
+let listProductHTML = document.querySelector('.listProduct');
+let listCartHTML = document.querySelector('.listCart');
+let iconCart = document.querySelector('.icon-cart');
+let iconCartSpan = document.querySelector('.icon-cart span');
+let body = document.querySelector('body');
+let closeCart = document.querySelector('.close');
+let products = [];
+let cart = [];
 
-const app = express();
-const port = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+iconCart.addEventListener('click', () => {
+    body.classList.toggle('showCart');
+})
+closeCart.addEventListener('click', () => {
+    body.classList.toggle('showCart');
+})
 
-// Serve static files
-app.use(express.static(path.join(__dirname)));
+    const addDataToHTML = () => {
+    // remove datas default from HTML
 
-// Replace with your Razorpay credentials
-const razorpay = new Razorpay({
-  key_id: 'rzp_test_Y2wy8t1wD1AFaA',
-  key_secret: 'zSqRMpIa2ljBBpkieFYGmfLa',
-});
+        // add new datas
+        if(products.length > 0) // if has data
+        {
+            products.forEach(product => {
+                let newProduct = document.createElement('div');
+                newProduct.dataset.id = product.id;
+                newProduct.classList.add('item');
+                newProduct.innerHTML = 
+                `<img src="${product.image}" alt="">
+                <h2>${product.name}</h2>
+                <div class="price">$${product.price}</div>
+                <button class="addCart">Add To Cart</button>`;
+                listProductHTML.appendChild(newProduct);
+            });
+        }
+    }
+    listProductHTML.addEventListener('click', (event) => {
+        let positionClick = event.target;
+        if(positionClick.classList.contains('addCart')){
+            let id_product = positionClick.parentElement.dataset.id;
+            addToCart(id_product);
+        }
+    })
+const addToCart = (product_id) => {
+    let positionThisProductInCart = cart.findIndex((value) => value.product_id == product_id);
+    if(cart.length <= 0){
+        cart = [{
+            product_id: product_id,
+            quantity: 1
+        }];
+    }else if(positionThisProductInCart < 0){
+        cart.push({
+            product_id: product_id,
+            quantity: 1
+        });
+    }else{
+        cart[positionThisProductInCart].quantity = cart[positionThisProductInCart].quantity + 1;
+    }
+    addCartToHTML();
+    addCartToMemory();
+}
+const addCartToMemory = () => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+const addCartToHTML = () => {
+    listCartHTML.innerHTML = '';
+    let totalQuantity = 0;
+    if(cart.length > 0){
+        cart.forEach(item => {
+            totalQuantity = totalQuantity +  item.quantity;
+            let newItem = document.createElement('div');
+            newItem.classList.add('item');
+            newItem.dataset.id = item.product_id;
 
-// Function to read data from JSON file
-const readData = () => {
-  if (fs.existsSync('orders.json')) {
-    const data = fs.readFileSync('orders.json');
-    return JSON.parse(data);
-  }
-  return [];
-};
-
-// Function to write data to JSON file
-const writeData = (data) => {
-  fs.writeFileSync('orders.json', JSON.stringify(data, null, 2));
-};
-
-// Initialize orders.json if it doesn't exist
-if (!fs.existsSync('orders.json')) {
-  writeData([]);
+            let positionProduct = products.findIndex((value) => value.id == item.product_id);
+            let info = products[positionProduct];
+            listCartHTML.appendChild(newItem);
+            newItem.innerHTML = `
+            <div class="image">
+                    <img src="${info.image}">
+                </div>
+                <div class="name">
+                ${info.name}
+                </div>
+                <div class="totalPrice">$${info.price * item.quantity}</div>
+                <div class="quantity">
+                    <span class="minus"><</span>
+                    <span>${item.quantity}</span>
+                    <span class="plus">></span>
+                </div>
+            `;
+        })
+    }
+    iconCartSpan.innerText = totalQuantity;
 }
 
-// Route to handle order creation
-app.post('/create-order', async (req, res) => {
-  try {
-    const { amount, currency, receipt, notes } = req.body;
-
-    const options = {
-      amount: amount * 100, // Convert amount to paise
-      currency,
-      receipt,
-      notes,
-    };
-
-    const order = await razorpay.orders.create(options);
-    
-    // Read current orders, add new order, and write back to the file
-    const orders = readData();
-    orders.push({
-      order_id: order.id,
-      amount: order.amount,
-      currency: order.currency,
-      receipt: order.receipt,
-      status: 'created',
-    });
-    writeData(orders);
-
-    res.json(order); // Send order details to frontend, including order ID
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error creating order');
-  }
-});
-
-// Route to serve the success page
-app.get('/payment-success', (req, res) => {
-  res.sendFile(path.join(__dirname, 'success.html'));
-});
-
-// Route to handle payment verification
-app.post('/verify-payment', (req, res) => {
-  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
-
-  const secret = razorpay.key_secret;
-  const body = razorpay_order_id + '|' + razorpay_payment_id;
-
-  try {
-    const isValidSignature = validateWebhookSignature(body, razorpay_signature, secret);
-    if (isValidSignature) {
-      // Update the order with payment details
-      const orders = readData();
-      const order = orders.find(o => o.order_id === razorpay_order_id);
-      if (order) {
-        order.status = 'paid';
-        order.payment_id = razorpay_payment_id;
-        writeData(orders);
-      }
-      res.status(200).json({ status: 'ok' });
-      console.log("Payment verification successful");
-    } else {
-      res.status(400).json({ status: 'verification_failed' });
-      console.log("Payment verification failed");
+listCartHTML.addEventListener('click', (event) => {
+    let positionClick = event.target;
+    if(positionClick.classList.contains('minus') || positionClick.classList.contains('plus')){
+        let product_id = positionClick.parentElement.parentElement.dataset.id;
+        let type = 'minus';
+        if(positionClick.classList.contains('plus')){
+            type = 'plus';
+        }
+        changeQuantityCart(product_id, type);
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ status: 'error', message: 'Error verifying payment' });
-  }
-});
+})
+const changeQuantityCart = (product_id, type) => {
+    let positionItemInCart = cart.findIndex((value) => value.product_id == product_id);
+    if(positionItemInCart >= 0){
+        let info = cart[positionItemInCart];
+        switch (type) {
+            case 'plus':
+                cart[positionItemInCart].quantity = cart[positionItemInCart].quantity + 1;
+                break;
+        
+            default:
+                let changeQuantity = cart[positionItemInCart].quantity - 1;
+                if (changeQuantity > 0) {
+                    cart[positionItemInCart].quantity = changeQuantity;
+                }else{
+                    cart.splice(positionItemInCart, 1);
+                }
+                break;
+        }
+    }
+    addCartToHTML();
+    addCartToMemory();
+}
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+const initApp = () => {
+    // get data product
+    fetch('products.json')
+    .then(response => response.json())
+    .then(data => {
+        products = data;
+        addDataToHTML();
+
+        // get data cart from memory
+        if(localStorage.getItem('cart')){
+            cart = JSON.parse(localStorage.getItem('cart'));
+            addCartToHTML();
+        }
+    })
+}
+initApp();

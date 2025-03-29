@@ -1,0 +1,51 @@
+[
+    {
+        "id": 1,
+        "name":" Flower Pot",
+        "price": 200,
+        "image": "image/1.jpeg"
+    },
+    {
+        "id": 2,
+        "name":" Wooden Necklace",
+        "price": 250,
+        "image": "image/2.jpeg"
+    },
+    {
+        "id": 3,
+        "name":" Photoframe",
+        "price": 290,
+        "image": "image/3.jpeg"
+    },
+    {
+        "id": 4,
+        "name":" Earings",
+        "price": 200,
+        "image": "image/4.jpg"
+    },
+    {
+        "id": 5,
+        "name":" Wooden Hoody",
+        "price": 300,
+        "image": "image/5.jpg"
+    },
+    {
+        "id": 6,
+        "name":" Flower Pot",
+        "price": 200,
+        "image": "image/1.jpeg"
+    },
+    {
+        "id": 7,
+        "name":" Wooden Necklace",
+        "price": 200,
+        "image": "image/2.jpeg"
+    },
+    {
+        "id": 8,
+        "name":" Photoframe",
+        "price": 200,
+        "image": "image/3.jpeg"
+    }
+
+]
