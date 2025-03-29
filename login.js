@@ -26,6 +26,8 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "Login.html"));
 });
 
+
+
 app.post("/", (req, res) => {
     console.log("Received Data:", req.body);  // Debugging
 
