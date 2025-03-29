@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Successful - NIRVANA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f4f4f4;
+        }
+        .success-container {
+            background: white;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .success-icon {
+            color: #4CAF50;
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            background: #6a4c93;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">✓</div>
+        <h1>Payment Successful</h1>
+        <p>Thank you for your purchase!</p>
+        <p>Payment ID: <span id="payment-id"></span></p>
+        <a href="/index.html" class="btn">Continue Shopping</a>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById('payment-id').textContent = urlParams.get('payment_id');
+    </script>
+</body>
+</html>
