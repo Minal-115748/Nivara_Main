@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Signup Page</title>
     <style>
         * {
             margin: 0;
@@ -17,20 +17,21 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f4;
+            background: #f4f4f4;
         }
 
-        .login-container {
+        .container {
             background: white;
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            width: 350px;
             text-align: center;
         }
 
-        .login-container h2 {
+        h2 {
             margin-bottom: 20px;
+            color: #333;
         }
 
         .input-group {
@@ -38,20 +39,15 @@
             text-align: left;
         }
 
-        .input-group label {
-            display: block;
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-
         .input-group input {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            font-size: 14px;
         }
 
-        .btn {
+        button {
             background: #007bff;
             color: white;
             border: none;
@@ -59,46 +55,42 @@
             width: 100%;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
         }
 
-        .btn:hover {
+        button:hover {
             background: #0056b3;
         }
 
-        .register-link {
-            margin-top: 10px;
+        p {
+            margin-top: 15px;
             font-size: 14px;
+            color: #555;
         }
 
-        .register-link a {
+        p a {
             color: #007bff;
             text-decoration: none;
         }
 
-        .register-link a:hover {
+        p a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
-
-    <div class="login-container">
-        <h2>Login</h2>
-        <form action="/" method="POST">
+    <div class="container">
+        <h2>Sign Up</h2>
+        <form action="/signup" method="POST">
             <div class="input-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" name="newUsername" placeholder="Enter Username" required>
             </div>
             <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" name="newPassword" placeholder="Enter Password" required>
             </div>
-            <button type="submit" class="btn">Login</button>
+            <button type="submit">Register</button>
         </form>
-        <div class="register-link">
-            Don't have an account? <a href="Signup.html">Sign up</a>
-        </div>
+        <p>Already have an account? <a href="/">Login here</a></p>
     </div>
-
 </body>
 </html>
